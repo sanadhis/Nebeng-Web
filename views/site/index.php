@@ -7,45 +7,42 @@ $this->title = 'Nebeng Web - Home';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <h1>Selamat Datang di Aplikasi Web Nebeng</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">Simak rangkuman platform kami!</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>
 
     <div class="body-content">
 
         <div class="row">
             <div class="col-lg-4">
-                <h2>Heading</h2>
+                <img src="<?= Yii::$app->request->baseUrl ?>/img/icon-about.png" class="img-responsive" width="128px" style="margin: 0 auto;">
+                <h2>Nebeng (Berbagi Tumpangan)</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <p>Berbagi Tumpangan merupakan aplikasi yang ditunjukkan untuk menjadi platform berbagi kendaraan secara efektif dan efisien. Aplikasi ini
+                menjadi wadah untuk berbagi volume kendaraan pribadi ke pengguna jalan raya lain. Hal ini merupakan upaya untuk mewujudkan green transportation 
+                system dengan mengurangi volume kendaraan di jalan raya (mengurangi penggunaan kendaraan pribadi).
+                </p>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
+                <img src="<?= Yii::$app->request->baseUrl ?>/img/ui-logo.png" class="img-responsive" width="128px" style="margin: 0 auto;">
+                <h2>Universitas Indonesia</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <p>Platform Berbagi Tumpangan ditunjukkan hanya untuk sivitas akademika Universitas Indonesia (Tenaga Pengajar, Staf, dan Mahasiswa).
+                   Mengandalkan fitur SSO (single-sign-on) menggunakan akun JUITA UI, aplikasi ini dijamin aman karena pengguna aplikasi dipastikan adalah sivitas UI
+                </p>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
+                <img src="<?= Yii::$app->request->baseUrl ?>/img/ime.jpg" class="img-responsive" width="96px" style="margin: 0 auto;">
+                <h2>Teknik Komputer - DTE</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <p>Aplikasi dikembangkan dibawah naungan Departemen Teknik Elektro oleh Mahasiswa Teknik Komputer dan merupakan bagian dari kluster riset IoT serta project
+                green.ui.ac.id
+                </p>
 
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
             </div>
         </div>
 

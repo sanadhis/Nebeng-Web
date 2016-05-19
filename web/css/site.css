@@ -89,3 +89,12 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+.btn-login {
+    background: #f1c40f !important;
+    border-color: #95a5a6 !important;
+}
+
+.login-logo{
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}

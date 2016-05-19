@@ -52,6 +52,21 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionCaritumpangan()
+    {
+        return $this->render('cariTumpangan');
+    }
+
+    public function actionBuattumpangan()
+    {
+        return $this->render('buatTumpangan');
+    }
+
+    public function actionProfil()
+    {
+        return $this->render('profil');
+    }
+
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {

@@ -85,7 +85,7 @@ use yii\helpers\Html;
                             <div class="pull-left">
                                 <?= Html::a(
                                     'Profile <i class="fa fa-user"></i>',
-                                    ['/site/logout'],
+                                    ['/site/profil'],
                                     ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
                                 ) ?>
                             </div>
