@@ -8,39 +8,54 @@ $this->title = 'Cari Tumpangan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
-    <h1><?= Html::encode($this->title) ?></h1>
+    
+    <?php
+        if(empty($data)){
+            echo "<h1>Belum ada tumpangan tersedia</h1>";
+        }
+        else{
+            echo "<h1>".Html::encode($this->title)."</h1>";
+            echo "<ul class=\"timeline\">";
+            foreach ($data as $result) {
+                echo "
+                <!-- timeline time label -->
+                <li class=\"time-label\">
+                    <span class=\"bg-red\">
+                        $result[jam_berangkat]
+                    </span>
+                </li>
+                <!-- /.timeline-label -->
+                <li>
+                    <!-- timeline icon -->
+                    <i class=\"fa fa-car bg-yellow\"></i>
+                    <div class=\"timeline-item\">
+                        <span class=\"time\"><b>Waktu tumpangan: <i class=\"fa fa-clock-o\"></i> $result[jam_berangkat], $result[waktu_berangkat]</b></span>
 
-    <ul class="timeline">
+                        <h3 class=\"timeline-header\"><b>$result[nama]</b>, Rute : $result[asal] <i class=\"fa fa-arrow-right\"></i> $result[tujuan]</h3>
 
-    <!-- timeline time label -->
-    <li class="time-label">
-        <span class="bg-red">
-            10 Feb. 2014
-        </span>
-    </li>
-    <!-- /.timeline-label -->
+                        <div class=\"timeline-body\">
+                            <dl class=\"dl-horizontal\">
+                                <dt>NPM Pengendara</dt>
+                                <dd>: $result[npm] </dd>
+                                <dt>Kapasitas Tumpangan</dt>
+                                <dd>: $result[kapasitas] orang</dd>
+                                <dt>Keterangan Tambahan</dt>
+                                <dd>: $result[keterangan]</dd>
+                            </dl>
+                        </div>
 
-    <!-- timeline item -->
-    <li>
-        <!-- timeline icon -->
-        <i class="fa fa-car bg-blue"></i>
-        <div class="timeline-item">
-            <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                        <div class=\"timeline-footer\">
+                            <a class=\"btn btn-success \">Tumpangi Kendaraan ini!</a> Sisa Kapasitas : $result[sisa_kapasitas] orang
+                        </div>
+                    </div>
+                </li>";
+            }
+            echo "<!-- timeline item -->
+    
+            <!-- END timeline item -->
 
-            <h3 class="timeline-header"><a href="#">Support Team</a> ...</h3>
-
-            <div class="timeline-body">
-                ...
-                Content goes here
-            </div>
-
-            <div class="timeline-footer">
-                <a class="btn btn-primary ">Tumpangi Kendaraan ini!</a>
-            </div>
-        </div>
-    </li>
-    <!-- END timeline item -->
-
-	</ul>
+            </ul>";
+        }
+    ?>
 
 </div>

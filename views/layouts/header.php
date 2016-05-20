@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 <header class="main-header">
 
-    <?= Html::a('<span class="logo-mini">'.Html::img('@web/img/nebeng_icon1.png', ["class"=>"img-responsive", "alt"=>"logo mini"]).'</span><span class="logo-lg">' . Html::img('@web/img/nebeng5.png', ["class"=>"img-responsive", "style"=>"margin: 0 auto", "alt"=>"logo besar"]) . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    <?= Html::a('<span class="logo-mini">'.Html::img('@web/img/nebeng_icon1.png', ["class"=>"img-responsive", "alt"=>"logo mini"]).'</span><span class="logo-lg">' . Html::img('@web/img/nebeng5.png', ["class"=>"img-responsive", "style"=>"margin: 0 auto", "alt"=>"logo besar"]) . '</span>', ['/site/gotohome'], ['class' => 'logo', "data-method"=>"post"]) ?>
 
     <nav class="navbar navbar-static-top" role="navigation">
 
