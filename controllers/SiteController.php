@@ -11,6 +11,7 @@ use app\models\ContactForm;
 use app\models\BeriTebengan;
 use app\models\NebengUser;
 use app\models\BuattebenganForm;
+use app\models\ProfilForm;
 use app\models\Nebeng;
 date_default_timezone_set("Asia/Jakarta");
 
@@ -119,15 +120,35 @@ class SiteController extends Controller
     {
         $this->checkUser();
 
-        $rows = NebengUser::find()->all();
-        return $this->render('profil');
+        $userData = NebengUser::find()
+                ->where(['username' => Yii::$app->session->get('user.nebUsername')])
+                ->one();
+        return $this->render('profil',['data'=>$userData]);
     }
 
     public function actionEditprofil()
     {
         $this->checkUser();
 
-        return $this->render('editProfil');
+        $model = new ProfilForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            
+            $user = NebengUser::find()
+                        ->where(['username' => Yii::$app->session->get('user.nebUsername')])
+                        ->one();
+            $user->email = $model->email;
+            $user->no_handphone = $model->noHP;
+            $user->update();            
+                
+            $infoTitle = "Sukses Memperbaharui Informasi Kontak";
+            $subInfoTitle = "Gunakan menu untuk berpindah ke halaman lain";
+            $callout = "callout-success";
+            return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
+            
+        } else {
+            // either the page is initially displayed or there is some validation error
+            return $this->render('editProfil', ['model' => $model]);
+        }
     }
 
     public function actionLogin()
@@ -180,7 +201,6 @@ class SiteController extends Controller
     }
 
     public function checkUser(){
-        echo $this->checkStatusMenumpang();
         if(!Yii::$app->user->identity){
             return $this->goHome();
         }

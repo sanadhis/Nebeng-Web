@@ -57,7 +57,7 @@ $form = ActiveForm::begin([
 						<?= $form->field($model, 'keterangan', ['template' => "{input}\n{hint}\n{error}"])->textInput(array('placeholder' => 'Keterangan Tambahan, contoh: jenis kendaraan')); ?>
 					</div>
 					<div class="box-footer">
-					<?= Html::submitButton('Buat Tumpangan Anda!', ['class' => 'btn btn-warning']) ?>
+					<?= Html::submitButton('Buat Tumpangan Anda!', ['class' => 'btn btn-success']) ?>
 					</div>
 					<?php ActiveForm::end() ?>
 

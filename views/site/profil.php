@@ -60,17 +60,23 @@ $this->params['breadcrumbs'][] = $this->title;
 	            </div>
 	            <!-- /.box-header -->
 	            <div class="box-body">
-	              <strong><i class="fa fa-envelope margin-r-5"></i> Email</strong>
+	              <strong><i class="fa fa-envelope margin-r-5"></i> Email Non-UI</strong>
 
 	              <p class="text-muted">
-	                B.S. in Computer Science from the University of Tennessee at Knoxville
+	              	<?php
+	              		if($data) echo $data->email;
+	              	?>
 	              </p>
 
 	              <hr>
 
 	              <strong><i class="fa fa-phone-square margin-r-5"></i> No. Handphone</strong>
 
-	              <p class="text-muted">Malibu, California</p>
+	              <p class="text-muted">
+	              	<?php
+	              		if($data) echo $data->no_handphone;
+	              	?>
+	              </p>
 
 	            </div>
 	            <!-- /.box-body -->
@@ -78,6 +84,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		</div>
 	</div>
-	<button type="button" class="btn btn-success btn-lg">Edit Profile Anda</button>
+	<?= Html::a('Edit Profile Anda', ['/site/editprofil'], ['class' => 'btn btn-success btn-lg', "data-method"=>"post"]) ?>
 	
 </div>
