@@ -11,6 +11,7 @@ use app\models\ContactForm;
 use app\models\BeriTebengan;
 use app\models\NebengUser;
 use app\models\BuattebenganForm;
+use app\models\Nebeng;
 date_default_timezone_set("Asia/Jakarta");
 
 class SiteController extends Controller
@@ -66,12 +67,10 @@ class SiteController extends Controller
     {
         $this->checkUser();
 
-        $date_now        = date('Y-m-d H:i:s');
-
         $rows = BeriTebengan::find()
                 ->select('*')
                 ->join('INNER JOIN','nebeng_user','nebeng_beri_tebengan.user_id = nebeng_user.id')
-                ->where(['>=', 'nebeng_beri_tebengan.detail_waktu_kadaluarsa', $date_now])
+                ->where(['>=', 'nebeng_beri_tebengan.detail_waktu_kadaluarsa', $this->getDate()])
                 ->orderBy('waktu_berangkat','jam_berangkat')
                 ->asArray()->all();
         return $this->render('cariTumpangan',['data'=>$rows]);
@@ -84,22 +83,32 @@ class SiteController extends Controller
         $model = new BuattebenganForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             
-            $waktuKadaluarsa = $this->getKadaluarsa($model->jamBerangkat);
+            if($this->checkStatusTumpangan()){
+                $infoTitle = "Anda Sudah Membuat Tumpangan";
+                $subInfoTitle = "Anda harus menunggu masa tumpangan anda habis";
+                $callout = "callout-danger";
+                return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
+            }
+            else{
+                $waktuKadaluarsa = $this->getKadaluarsa($model->jamBerangkat);
 
-            $modelTebengan                  = new BeriTebengan();
-            $modelTebengan->asal            = $model->asal;
-            $modelTebengan->tujuan          = $model->tujuan;
-            $modelTebengan->kapasitas       = $model->kapasitas;
-            $modelTebengan->jam_berangkat   = str_replace('.', ':', $model->jamBerangkat);
-            $modelTebengan->keterangan      = $model->keterangan;
-            $modelTebengan->sisa_kapasitas  = $model->kapasitas;
-            $modelTebengan->waktu_berangkat = date("Y-m-d");
-            $modelTebengan->jam_kadaluarsa  = explode(" ",$waktuKadaluarsa)[1];
-            $modelTebengan->detail_waktu_kadaluarsa = $waktuKadaluarsa;
-            $modelTebengan->user_id = "1";
+                $modelTebengan                  = new BeriTebengan();
+                $modelTebengan->asal            = $model->asal;
+                $modelTebengan->tujuan          = $model->tujuan;
+                $modelTebengan->kapasitas       = $model->kapasitas;
+                $modelTebengan->jam_berangkat   = str_replace('.', ':', $model->jamBerangkat);
+                $modelTebengan->keterangan      = $model->keterangan;
+                $modelTebengan->sisa_kapasitas  = $model->kapasitas;
+                $modelTebengan->waktu_berangkat = date("Y-m-d");
+                $modelTebengan->jam_kadaluarsa  = explode(" ",$waktuKadaluarsa)[1];
+                $modelTebengan->detail_waktu_kadaluarsa = $waktuKadaluarsa;
+                $modelTebengan->user_id = "1";
 
-            $modelTebengan->save();
-            return Yii::$app->runAction('site/caritumpangan');
+                $modelTebengan->save();
+                return Yii::$app->runAction('site/caritumpangan');
+            }
+
+            
         } else {
             // either the page is initially displayed or there is some validation error
             return $this->render('buatTumpangan', ['model' => $model]);
@@ -114,6 +123,13 @@ class SiteController extends Controller
         return $this->render('profil');
     }
 
+    public function actionEditprofil()
+    {
+        $this->checkUser();
+
+        return $this->render('editProfil');
+    }
+
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -122,6 +138,14 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            
+            $user_id = NebengUser::find()
+                    ->where(['username' => Yii::$app->session->get('user.nebUsername')])
+                    ->one()
+                    ->id;
+
+            Yii::$app->session->set('user.nebId',$user_id);      
+
             return $this->redirect(array('site/gotohome'));
         }
         return $this->render('login', [
@@ -156,8 +180,36 @@ class SiteController extends Controller
     }
 
     public function checkUser(){
+        echo $this->checkStatusMenumpang();
         if(!Yii::$app->user->identity){
             return $this->goHome();
         }
     }
+
+    public function checkStatusMenumpang(){
+        $checkStatusMenumpang = Nebeng::find()
+                                ->select('*')
+                                ->join('INNER JOIN','nebeng_beri_tebengan','nebeng_beri_tebengan.id_tebengan = nebeng_nebeng.id_tebengan')
+                                ->where(['nebeng_nebeng.id_penebeng' => Yii::$app->session->get('user.nebId')])
+                                ->andWhere(['>=', 'nebeng_beri_tebengan.detail_waktu_kadaluarsa', $this->getDate()])
+                                ->one();
+        if($checkStatusMenumpang){
+            return "Sedang Menumpang";
+        }
+    }
+
+    public function checkStatusTumpangan(){
+        $checkStatusTumpangan = BeriTebengan::find()
+                                ->where(['user_id' => Yii::$app->session->get('user.nebId')])
+                                ->andWhere(['>=', 'detail_waktu_kadaluarsa', $this->getDate()])
+                                ->one();
+        if($checkStatusTumpangan){
+            return true;
+        }
+    }
+
+    public function getDate(){
+        return date('Y-m-d H:i:s');
+    }
+
 }
