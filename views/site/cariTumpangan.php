@@ -45,9 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             </dl>
                         </div>
 
-                        <div class=\"timeline-footer\">".
-                             Html::a('Tumpangi Kendaraan ini!', ['/site/numpang', 'id' => $result['id_tebengan']], ['class' => 'btn btn-success', 'data-method'=>'post']) 
-                            ."Sisa Kapasitas : $result[sisa_kapasitas] orang
+                        <div class=\"timeline-footer\">";
+                if ($result['sisa_kapasitas']!=0)        
+                    echo Html::a('Tumpangi Kendaraan ini!', ['/site/numpang', 'id' => $result['id_tebengan']], ['class' => 'btn btn-success', 'data-method'=>'post'])."  "; 
+                    echo "Sisa Kapasitas : $result[sisa_kapasitas] orang
                         </div>
                     </div>
                 </li>";

@@ -91,13 +91,13 @@ class SiteController extends Controller
         $this->checkUser();
 
         if($this->checkStatusTumpangan()){
-                $infoTitle = "Anda Sedang Memberi Tumpangan";
+                $infoTitle = "<i class=\"fa fa-times\" aria-hidden=\"true\"></i> Anda Sedang Memberi Tumpangan";
                 $subInfoTitle = "Anda tidak bisa menumpang apabila sedang memberi tumpangan";
                 $callout = "callout-danger";
                 return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
         }
         else if($this->checkStatusMenumpang()){
-                $infoTitle = "Anda Sudah Menumpang";
+                $infoTitle = "<i class=\"fa fa-times\" aria-hidden=\"true\"></i> Anda Sudah Menumpang";
                 $subInfoTitle = "Anda tidak dapat menumpang tumpangan lain";
                 $callout = "callout-danger";
                 return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
@@ -107,15 +107,19 @@ class SiteController extends Controller
             $nebeng->id_penebeng = Yii::$app->session->get('user.nebId');
             $nebeng->id_tebengan = $id;
             $nebeng->waktu_konfirmasi = $this->getDate();
-            $nebeng->save();
 
             $beriTebengan = BeriTebengan::find()
-                        ->where(['user_id' => Yii::$app->session->get('user.nebId')])
+                        ->where(['id_tebengan' => $id])
                         ->orderBy('detail_waktu_kadaluarsa DESC')
                         ->one();
-            $beriTebengan->updateCounters(['kapasitas' => -1]);
+            $beriTebengan->sisa_kapasitas -= 1;
 
-            return Yii::$app->runAction('site/caritumpangan');
+            if($nebeng->save() && $beriTebengan->update() ){
+                    $infoTitle = "<i class=\"fa fa-check\" aria-hidden=\"true\"></i> Anda Sukses Menumpang";
+                    $subInfoTitle = "Selama menumpang anda tidak bisa membuat tumpangan ataupun menumpang ke yang lain";
+                    $callout = "callout-success";
+                    return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
+            }
         }
     }
 
@@ -127,13 +131,13 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             
             if($this->checkStatusTumpangan()){
-                $infoTitle = "Anda Sudah Membuat Tumpangan";
+                $infoTitle = "<i class=\"fa fa-times\" aria-hidden=\"true\"></i> Anda Sudah Membuat Tumpangan";
                 $subInfoTitle = "Anda harus menunggu masa tumpangan anda habis";
                 $callout = "callout-danger";
                 return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
             }
             else if($this->checkStatusMenumpang()){
-                $infoTitle = "Anda Sedang Menumpang Tumpangan Lain";
+                $infoTitle = "<i class=\"fa fa-times\" aria-hidden=\"true\"></i> Anda Sedang Menumpang Tumpangan Lain";
                 $subInfoTitle = "Anda tidak dapat <b>memberi tumpangan</b> ketika sedang menumpang";
                 $callout = "callout-danger";
                 return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
@@ -188,7 +192,7 @@ class SiteController extends Controller
             $user->no_handphone = $model->noHP;
             $user->update();            
                 
-            $infoTitle = "Sukses Memperbaharui Informasi Kontak";
+            $infoTitle = "<i class=\"fa fa-check\" aria-hidden=\"true\"></i> Sukses Memperbaharui Informasi Kontak";
             $subInfoTitle = "Gunakan menu untuk berpindah ke halaman lain";
             $callout = "callout-success";
             return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
