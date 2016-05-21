@@ -5,7 +5,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Buat Tumpangan';
+$this->title = 'NebengWeb - Pesan ';
 $this->params['breadcrumbs'][] = $this->title;
 
 $form = ActiveForm::begin([

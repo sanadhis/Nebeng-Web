@@ -12,6 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
         if(empty($data)){
             echo "<h1>Belum ada tumpangan tersedia</h1>";
+            echo "<h3>Anda harus menunggu sampai terdapat tumpangan yang tersedia</h3>";
         }
         else{
             echo "<h1>".Html::encode($this->title)."</h1>";
@@ -44,8 +45,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             </dl>
                         </div>
 
-                        <div class=\"timeline-footer\">
-                            <a class=\"btn btn-success \">Tumpangi Kendaraan ini!</a> Sisa Kapasitas : $result[sisa_kapasitas] orang
+                        <div class=\"timeline-footer\">".
+                             Html::a('Tumpangi Kendaraan ini!', ['/site/numpang', 'id' => $result['id_tebengan']], ['class' => 'btn btn-success', 'data-method'=>'post']) 
+                            ."Sisa Kapasitas : $result[sisa_kapasitas] orang
                         </div>
                     </div>
                 </li>";

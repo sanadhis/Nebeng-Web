@@ -64,6 +64,15 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionDownload(){
+        $path = $_SERVER['DOCUMENT_ROOT'] . '/nebeng/uploads/apk/nebengAndroidApp_v03.apk';
+
+          if(file_exists($path))
+          {
+            return Yii::$app->response->xSendFile($path);
+          }
+    }
+
     public function actionCaritumpangan()
     {
         $this->checkUser();
@@ -77,6 +86,39 @@ class SiteController extends Controller
         return $this->render('cariTumpangan',['data'=>$rows]);
     }
 
+    public function actionNumpang($id)
+    {
+        $this->checkUser();
+
+        if($this->checkStatusTumpangan()){
+                $infoTitle = "Anda Sedang Memberi Tumpangan";
+                $subInfoTitle = "Anda tidak bisa menumpang apabila sedang memberi tumpangan";
+                $callout = "callout-danger";
+                return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
+        }
+        else if($this->checkStatusMenumpang()){
+                $infoTitle = "Anda Sudah Menumpang";
+                $subInfoTitle = "Anda tidak dapat menumpang tumpangan lain";
+                $callout = "callout-danger";
+                return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
+        }
+        else{
+            $nebeng = new Nebeng();
+            $nebeng->id_penebeng = Yii::$app->session->get('user.nebId');
+            $nebeng->id_tebengan = $id;
+            $nebeng->waktu_konfirmasi = $this->getDate();
+            $nebeng->save();
+
+            $beriTebengan = BeriTebengan::find()
+                        ->where(['user_id' => Yii::$app->session->get('user.nebId')])
+                        ->orderBy('detail_waktu_kadaluarsa DESC')
+                        ->one();
+            $beriTebengan->updateCounters(['kapasitas' => -1]);
+
+            return Yii::$app->runAction('site/caritumpangan');
+        }
+    }
+
     public function actionBuattumpangan()
     {
         $this->checkUser();
@@ -87,6 +129,12 @@ class SiteController extends Controller
             if($this->checkStatusTumpangan()){
                 $infoTitle = "Anda Sudah Membuat Tumpangan";
                 $subInfoTitle = "Anda harus menunggu masa tumpangan anda habis";
+                $callout = "callout-danger";
+                return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
+            }
+            else if($this->checkStatusMenumpang()){
+                $infoTitle = "Anda Sedang Menumpang Tumpangan Lain";
+                $subInfoTitle = "Anda tidak dapat <b>memberi tumpangan</b> ketika sedang menumpang";
                 $callout = "callout-danger";
                 return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
             }
@@ -207,24 +255,35 @@ class SiteController extends Controller
     }
 
     public function checkStatusMenumpang(){
-        $checkStatusMenumpang = Nebeng::find()
-                                ->select('*')
-                                ->join('INNER JOIN','nebeng_beri_tebengan','nebeng_beri_tebengan.id_tebengan = nebeng_nebeng.id_tebengan')
-                                ->where(['nebeng_nebeng.id_penebeng' => Yii::$app->session->get('user.nebId')])
-                                ->andWhere(['>=', 'nebeng_beri_tebengan.detail_waktu_kadaluarsa', $this->getDate()])
-                                ->one();
-        if($checkStatusMenumpang){
-            return "Sedang Menumpang";
+        try{
+                $checkStatusMenumpang = BeriTebengan::find()
+                                    ->select('*')
+                                    ->join('INNER JOIN','nebeng_nebeng','nebeng_beri_tebengan.id_tebengan = nebeng_nebeng.id_tebengan')
+                                    ->where(['nebeng_nebeng.id_penebeng' => Yii::$app->session->get('user.nebId')])
+                                    ->andWhere(['>=', 'nebeng_beri_tebengan.detail_waktu_kadaluarsa', $this->getDate()])
+                                    ->one();
+                if($checkStatusMenumpang){
+                    return true;
+            }
         }
+        catch(Exception $e){
+            return false; 
+        }
+        
     }
 
     public function checkStatusTumpangan(){
-        $checkStatusTumpangan = BeriTebengan::find()
-                                ->where(['user_id' => Yii::$app->session->get('user.nebId')])
-                                ->andWhere(['>=', 'detail_waktu_kadaluarsa', $this->getDate()])
-                                ->one();
-        if($checkStatusTumpangan){
-            return true;
+        try{
+            $checkStatusTumpangan = BeriTebengan::find()
+                                    ->where(['user_id' => Yii::$app->session->get('user.nebId')])
+                                    ->andWhere(['>=', 'detail_waktu_kadaluarsa', $this->getDate()])
+                                    ->one();
+            if($checkStatusTumpangan){
+                return true;
+            }
+        }
+        catch(Exception $e){
+            return false; 
         }
     }
 

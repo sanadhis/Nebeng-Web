@@ -34,7 +34,6 @@ use yii\helpers\Html;
 
                             <p>
                                 <?= Yii::$app->session->get('user.nebNama'); ?> - <?= Yii::$app->session->get('user.nebNPM'); ?>
-                                <small><?= Yii::$app->session->get('user.nebId'); ?></small>
                             </p>
                         </li>
                         <!-- Menu Footer-->

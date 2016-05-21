@@ -62,7 +62,7 @@ class LoginForm extends Model
     {
         if ($this->validate()) {
             Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 : 0);
-            Yii::$app->session->set('user.nebUsername',$this->_userData['0']);
+            Yii::$app->session->set('user.nebUsername',$this->username);
             Yii::$app->session->set('user.nebNPM',$this->_userData['1']);
             Yii::$app->session->set('user.nebRole',$this->_userData['2']);
             Yii::$app->session->set('user.nebNama',$this->_userData['3']);

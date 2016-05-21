@@ -1,8 +1,9 @@
 <?php
 
 /* @var $this yii\web\View */
+use yii\helpers\Html;
 
-$this->title = 'Nebeng Web - Home';
+$this->title = 'NebengWeb - Home';
 ?>
 <div class="site-index">
 
@@ -47,4 +48,10 @@ $this->title = 'Nebeng Web - Home';
         </div>
 
     </div>
+    <div class="row">
+    &nbsp;<br>
+    </div>
+        <br>
+        <?= Html::a('Download Aplikasi Android', ['/site/download'], ['class' => 'btn btn-primary btn-lg', "data-method"=>"post"]) ?>
+
 </div>
