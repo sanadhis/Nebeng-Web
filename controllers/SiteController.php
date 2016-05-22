@@ -62,17 +62,6 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
-    public function actionDownload(){
-        $path = $_SERVER['DOCUMENT_ROOT'] . '/nebeng/uploads/apk/nebengAndroidApp_v03.apk';
-
-          if(file_exists($path))
-          {
-            $size = filesize($path);
-            // return \Yii::$app->response->sendFile('http://localhost/nebeng/uploads/apk/file.txt',"Nebeng-App");
-            // \Yii::$app->response->sendFile('http://localhost/nebeng/uploads/apk/file.txt',"Nebeng.apk",['filesize'=>$size])->send();
-          }
-    }
-
     public function actionCaritumpangan()
     {
         $this->checkUser();
@@ -221,9 +210,6 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        else if(Yii::$app->user->identity){
-            return $this->render('index');
-        }
         else{
             $model = new LoginForm();
             if ($model->load(Yii::$app->request->post()) && $model->login()) {
@@ -284,7 +270,7 @@ class SiteController extends Controller
 
     public function checkUser(){
         if(!Yii::$app->user->identity){
-            return $this->goHome();
+            return $this->redirect(array('site/login'));
         }
     }
 
