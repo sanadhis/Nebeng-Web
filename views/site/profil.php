@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<h1><?= Html::encode($this->title) ?></h1>
 
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-5">
 			<!-- Widget: user widget style 1 -->
 			<div class="box box-widget widget-user">
 				<!-- Add the bg color to the header using any of the bg-* classes -->
@@ -81,8 +81,9 @@ $this->params['breadcrumbs'][] = $this->title;
 	            </div>
 	            <!-- /.box-body -->
 	        </div>
+	        <?= Html::a('Edit Profile Anda', ['/site/editprofil'], ['class' => 'btn btn-success btn-lg', "data-method"=>"post"]) ?>
+		</div><!-- end col-md-5 -->
 
-		</div>
 		<div class="col-md-6">
 			<div class="box box-warning">
 				<div class="box-header with-border">
@@ -142,6 +143,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		</div><!--end col md 6-->
 	</div>
-	<?= Html::a('Edit Profile Anda', ['/site/editprofil'], ['class' => 'btn btn-success btn-lg', "data-method"=>"post"]) ?>
+	
 	
 </div>

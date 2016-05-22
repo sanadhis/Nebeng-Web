@@ -293,9 +293,11 @@ class SiteController extends Controller
             $checkStatusMenumpang = BeriTebengan::find()
                                 ->select('*')
                                 ->join('INNER JOIN','nebeng_nebeng','nebeng_beri_tebengan.id_tebengan = nebeng_nebeng.id_tebengan')
+                                ->join('INNER JOIN','nebeng_user','nebeng_beri_tebengan.user_id = nebeng_user.id')
                                 ->where(['nebeng_nebeng.id_penebeng' => Yii::$app->session->get('user.nebId')])
                                 ->andWhere(['>=', 'nebeng_beri_tebengan.detail_waktu_kadaluarsa', $this->getDate()])
-                                ->one();
+                                ->asArray()
+                                ->all();
             if($checkStatusMenumpang){
                 return $checkStatusMenumpang;
             }
