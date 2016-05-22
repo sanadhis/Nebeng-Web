@@ -12,34 +12,25 @@ $this->title = $name;
 <!-- Main content -->
 <section class="content">
 
-    <div class="error-page">
-        <h2 class="headline text-info"><i class="fa fa-warning text-yellow"></i></h2>
+    <div class="site-about">
 
-        <div class="error-content">
-            <h3><?= $name ?></h3>
+            <div class="error-content">
+                <h3><?= $name ?></h3>
 
-            <p>
-                <?= nl2br(Html::encode($message)) ?>
-            </p>
+                <div class="info-box bg-red">
+                    <span class="info-box-icon"><i class="fa fa-warning text-white"></i></span>
 
-            <p>
-                The above error occurred while the Web server was processing your request.
-                Please contact us if you think this is a server error. Thank you.
-                Meanwhile, you may <a href='<?= Yii::$app->homeUrl ?>'>return to dashboard</a> or try using the search
-                form.
-            </p>
+                    <div class="info-box-content">
+                      <span class="info-box-text">Halaman yang anda cari tidak ditemukan</span>
+                      <span class="info-box-number">Mohon gunakan panel menu di sebelah kiri halaman</span>
 
-            <form class='search-form'>
-                <div class='input-group'>
-                    <input type="text" name="search" class='form-control' placeholder="Search"/>
-
-                    <div class="input-group-btn">
-                        <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-search"></i>
-                        </button>
+                          <span class="progress-description">
+                            Panel akan membantu anda berpindah halaman
+                          </span>
                     </div>
+                    <!-- /.info-box-content -->
                 </div>
-            </form>
+
         </div>
     </div>
-
 </section>

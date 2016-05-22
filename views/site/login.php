@@ -21,8 +21,8 @@ $fieldOptions2 = [
 
 <div class="login-box">
     <div class="login-logo">
-        <a href="#" style="color:#f1c40f" class="login-title"><b>Nebeng</b>Web <i class="fa fa-sign-in" aria-hidden="true"></i>
-</a>
+        <a href="#" style="color:#f1c40f" class="login-title">Login <b>Nebeng</b>Web <i class="fa fa-motorcycle" aria-hidden="true"></i>
+</a></a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">

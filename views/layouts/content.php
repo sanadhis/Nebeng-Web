@@ -24,6 +24,6 @@ use dmstr\widgets\Alert;
     <div class="pull-right hidden-xs">
         <b>Version</b> 1.0
     </div>
-    <strong>Copyright &copy; 2016 <a href="https://id.linkedin.com/in/sanadhisutandi">Nebeng's Dev</a>,<a href="http://almsaeedstudio.com">Admin LTE Template</a>.</strong> All rights
+    <strong>Copyright &copy; 2016 <a href="https://id.linkedin.com/in/sanadhisutandi" target="_blank">Nebeng's Dev</a>, Admin LTE-Custom.</strong> All rights
     reserved.
 </footer>
