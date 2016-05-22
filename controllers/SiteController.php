@@ -67,7 +67,9 @@ class SiteController extends Controller
 
           if(file_exists($path))
           {
-            return Yii::$app->response->xSendFile($path);
+            $size = filesize($path);
+            // return \Yii::$app->response->sendFile('http://localhost/nebeng/uploads/apk/file.txt',"Nebeng-App");
+            // \Yii::$app->response->sendFile('http://localhost/nebeng/uploads/apk/file.txt',"Nebeng.apk",['filesize'=>$size])->send();
           }
     }
 
@@ -213,10 +215,23 @@ class SiteController extends Controller
             $model = new LoginForm();
             if ($model->load(Yii::$app->request->post()) && $model->login()) {
                 
-                $user_id = NebengUser::find()
+                $user = NebengUser::find()
                         ->where(['username' => Yii::$app->session->get('user.nebUsername')])
-                        ->one()
-                        ->id;
+                        ->one();
+
+                if(!$user || empty($user)){
+                    $usernew = new NebengUser();
+                    $usernew->npm       = Yii::$app->session->get('user.nebNPM');
+                    $usernew->username  = Yii::$app->session->get('user.nebUsername');
+                    $usernew->nama      = Yii::$app->session->get('user.nebNama');
+                    $usernew->role      = Yii::$app->session->get('user.nebRole');
+                    $usernew->email     = Yii::$app->session->get('user.nebEmail');
+                    $usernew->save();
+                    $user_id = $usernew->id;
+                }
+                else{
+                    $user_id = $user->id;
+                }        
 
                 Yii::$app->session->set('user.nebId',$user_id);      
 

@@ -52,6 +52,6 @@ $this->title = 'NebengWeb - Home';
     &nbsp;<br>
     </div>
         <br>
-        <?= Html::a('Download Aplikasi Android', ['/site/download'], ['class' => 'btn btn-primary btn-lg', "data-method"=>"post"]) ?>
+        <a href ="http://localhost/nebeng/uploads/apk/nebengAndroidApp_v03.apk" class="btn btn-primary btn-lg" "target"="_blank">Download Aplikasi Android</a>
 
 </div>
