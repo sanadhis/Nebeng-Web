@@ -33,9 +33,6 @@ class SiteController extends Controller
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
             ],
         ];
     }
@@ -55,7 +52,8 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('login');
+        $this->checkUser();
+        return $this->render('index');
     }
 
     public function actionGotohome()
@@ -208,22 +206,26 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            
-            $user_id = NebengUser::find()
-                    ->where(['username' => Yii::$app->session->get('user.nebUsername')])
-                    ->one()
-                    ->id;
-
-            Yii::$app->session->set('user.nebId',$user_id);      
-
-            return $this->redirect(array('site/gotohome'));
+        else if(Yii::$app->user->identity){
+            return $this->render('index');
         }
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+        else{
+            $model = new LoginForm();
+            if ($model->load(Yii::$app->request->post()) && $model->login()) {
+                
+                $user_id = NebengUser::find()
+                        ->where(['username' => Yii::$app->session->get('user.nebUsername')])
+                        ->one()
+                        ->id;
+
+                Yii::$app->session->set('user.nebId',$user_id);      
+
+                return $this->redirect(array('site/gotohome'));
+            }
+            return $this->render('login', [
+                'model' => $model,
+            ]);
+        }
     }
 
     public function actionLogout()
