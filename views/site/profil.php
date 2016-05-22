@@ -83,6 +83,64 @@ $this->params['breadcrumbs'][] = $this->title;
 	        </div>
 
 		</div>
+		<div class="col-md-6">
+			<div class="box box-warning">
+				<div class="box-header with-border">
+					<h3 class="box-title">Informasi Tumpangan/Menumpang Anda</h3>
+				</div>
+
+				<div class="box-body">
+					<h4><?= $title ?></h4>
+
+						<?php
+					        if (!empty($infoTumpangan)){
+					            echo "<ul class=\"timeline\">";
+					            	foreach ($infoTumpangan as $result) {
+					                echo "
+					                <!-- timeline time label -->
+					                <li class=\"time-label\">
+					                    <span class=\"bg-red\">
+					                        $result[jam_berangkat]
+					                    </span>
+					                </li>
+					                <!-- /.timeline-label -->
+					                <li>
+					                    <!-- timeline icon -->
+					                    <i class=\"fa fa-car bg-yellow\"></i>
+					                    <div class=\"timeline-item\">
+					                        <span class=\"time\"><b>Waktu tumpangan: <i class=\"fa fa-clock-o\"></i> $result[jam_berangkat], $result[waktu_berangkat]</b></span>
+
+					                        <h3 class=\"timeline-header\">A/N: <b>$result[nama]</b>,<br>Rute : $result[asal] <i class=\"fa fa-arrow-right\"></i> $result[tujuan]</h3>
+
+					                        <div class=\"timeline-body\">
+					                            <dl class=\"dl-horizontal\">
+					                                <dt>NPM Pengendara</dt>
+					                                <dd>: $result[npm] </dd>
+					                                <dt>Kapasitas Tumpangan</dt>
+					                                <dd>: $result[kapasitas] orang</dd>
+					                                <dt>Keterangan Tambahan</dt>
+					                                <dd>: $result[keterangan]</dd>
+					                            </dl>
+					                        </div>
+
+					                        <div class=\"timeline-footer\">
+					               			Sisa Kapasitas : $result[sisa_kapasitas] orang
+					                        </div>
+					                    </div>
+					                </li>";
+					            	}
+					            echo "<!-- timeline item -->
+					    
+					            <!-- END timeline item -->
+
+					            </ul>";
+					        }
+						?>
+				</div><!--end box body-->
+
+			</div><!--end box success -->
+
+		</div><!--end col md 6-->
 	</div>
 	<?= Html::a('Edit Profile Anda', ['/site/editprofil'], ['class' => 'btn btn-success btn-lg', "data-method"=>"post"]) ?>
 	
