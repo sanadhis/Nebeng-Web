@@ -126,6 +126,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 					                        <div class=\"timeline-footer\">
 					               			Sisa Kapasitas : $result[sisa_kapasitas] orang
+					                        <span class=\"time\" style=\"float:right\">".
+					                    	Html::a('Hapus Tumpangan ini!', ['/site/deletetumpangan', 'idTebengan' => $result['id_tebengan']], ['class' => 'btn btn-danger', 'data-method'=>'post'])
+					                      	."</span>
 					                        </div>
 					                    </div>
 					                </li>";
@@ -159,7 +162,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					                    <!-- timeline icon -->
 					                    <i class=\"fa fa-user bg-green\"></i>
 					                    <div class=\"timeline-item\">
-					                        <span class=\"time bg-red\"><b>Waktu Permintaan: <i class=\"fa fa-clock-o\"></i> $result[waktu_konfirmasi]</b></span>
+					                        <span class=\"time bg-green\"><b>Waktu Permintaan: <i class=\"fa fa-clock-o\"></i> $result[waktu_konfirmasi]</b></span>
 
 					                        <h3 class=\"timeline-header\">A/N: <b>$result[nama]</b></h3>
 

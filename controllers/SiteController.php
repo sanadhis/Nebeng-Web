@@ -192,6 +192,35 @@ class SiteController extends Controller
         }
     }
 
+    public function actionDeletetumpangan($idTebengan)
+    {
+        $this->checkUser();
+
+        $tumpangan = $this->checkStatusTumpangan();
+        $menumpang = $this->checkStatusMenumpang();
+
+        if($tumpangan){
+            $tumpangan = BeriTebengan::deleteAll(['user_id' => Yii::$app->session->get('user.nebId')]);
+            $penumpang = Nebeng::deleteAll(['id_tebengan' => $idTebengan]);
+
+            $infoTitle = "<i class=\"fa fa-check\" aria-hidden=\"true\"></i> Sukses Menghapus Tumpangan Anda, Sistem akan Otomatis Terupdate";
+            $subInfoTitle = "Gunakan menu untuk berpindah ke halaman lain";
+            $callout = "callout-success";
+            return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
+        }
+        else if($menumpang){
+            $penumpang = Nebeng::deleteAll(['id_penebeng' => Yii::$app->session->get('user.nebId')]);
+            $update = BeriTebengan::find()->where(['id_tebengan' => $idTebengan])->one();
+            $update->sisa_kapasitas += 1;
+            $update->update();
+
+            $infoTitle = "<i class=\"fa fa-check\" aria-hidden=\"true\"></i> Sukses Membatalkan Permintaan Menumpang Anda, Sistem akan Otomatis Terupdate";
+            $subInfoTitle = "Gunakan menu untuk berpindah ke halaman lain";
+            $callout = "callout-success";
+            return $this->render('information', ['title' => $infoTitle, 'subTitle' => $subInfoTitle, 'callout' => $callout]);
+        }
+    }
+
     public function actionEditprofil()
     {
         $this->checkUser();
