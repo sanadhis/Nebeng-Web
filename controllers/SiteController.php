@@ -50,6 +50,13 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionErrorhandler(){
+        if(!Yii::$app->user->identity){
+            return Yii::$app->runAction('site/login');
+        }
+        return Yii::$app->runAction('site/index');
+    }
+
     public function actionIndex()
     {
         $this->checkUser();
@@ -167,8 +174,13 @@ class SiteController extends Controller
         $tumpangan = $this->checkStatusTumpangan();
         $menumpang = $this->checkStatusMenumpang();
         if($tumpangan){
+            $penumpang = $this->getTumpangan();
+            // var_dump($penumpang);
+            if(!$penumpang){
+                $penumpang ='';
+            }
             $infoTitle = "Detail tumpangan yang saat ini anda sediakan";
-            return $this->render('profil', ['data'=>$userData, 'title' => $infoTitle, 'infoTumpangan' => $tumpangan]);
+            return $this->render('profil', ['data'=>$userData, 'title' => $infoTitle, 'infoTumpangan' => $tumpangan, 'penumpang' => $penumpang]);
         }
         else if($menumpang){
             $infoTitle = "Detail tumpangan yang saat ini sedang anda tumpangi";
@@ -234,7 +246,8 @@ class SiteController extends Controller
 
                 Yii::$app->session->set('user.nebId',$user_id);      
 
-                return $this->redirect(array('site/gotohome'));
+                return Yii::$app->runAction('site/index');
+
             }
             return $this->render('login', [
                 'model' => $model,
@@ -316,6 +329,36 @@ class SiteController extends Controller
         catch(Exception $e){
             return false; 
         }
+    }
+
+    public function getTumpangan(){
+        try{
+            //this one fails, dont know why -_-
+            // $getTumpangan = BeriTebengan::find()
+            //                     ->select('*')
+            //                     ->join('INNER JOIN','nebeng_nebeng','nebeng_beri_tebengan.id_tebengan = nebeng_nebeng.id_tebengan')
+            //                     ->join('INNER JOIN','nebeng_user','nebeng_nebeng.id_penebeng = nebeng_user.id')
+            //                     ->where(['nebeng_beri_tebengan.user_id' => Yii::$app->session->get('user.nebId')])
+            //                     ->andWhere(['>=', 'nebeng_beri_tebengan.detail_waktu_kadaluarsa', $this->getDate()])
+            //                     ->asArray()
+            //                     ->all();
+            $nowDate = $this->getDate();
+            $getTumpangan = BeriTebengan::findBySQL("select * from nebeng_beri_tebengan inner join nebeng_nebeng on 
+                                                    nebeng_beri_tebengan.id_tebengan = nebeng_nebeng.id_tebengan 
+                                                    inner join nebeng_user on nebeng_nebeng.id_penebeng=nebeng_user.id where nebeng_beri_tebengan.user_id=1
+                                                    and nebeng_beri_tebengan.detail_waktu_kadaluarsa >= '$nowDate';")
+                            ->asArray()->all();
+            if($getTumpangan){
+                return $getTumpangan;
+            }
+            else{
+                return false;
+            }
+        }   
+        catch(Exception $e){
+            return false; 
+        }
+        
     }
 
     public function getDate(){

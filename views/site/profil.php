@@ -100,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					                echo "
 					                <!-- timeline time label -->
 					                <li class=\"time-label\">
-					                    <span class=\"bg-red\">
+					                    <span class=\"bg-green\">
 					                        $result[jam_berangkat]
 					                    </span>
 					                </li>
@@ -141,6 +141,54 @@ $this->params['breadcrumbs'][] = $this->title;
 
 			</div><!--end box success -->
 
+			<?php
+			if(isset($penumpang)){
+				echo "<div class=\"box box-warning\">
+					<div class=\"box-header with-border\">
+						<h3 class=\"box-title\">Penumpang untuk tumpangan anda</h3>
+					</div>
+					<div class=\"box-body\">";
+			
+						
+					        if (!empty($penumpang)){
+					            echo "<ul class=\"timeline\">";
+					            	foreach ($penumpang as $result) {
+					                echo "
+					                <!-- /.timeline-label -->
+					                <li>
+					                    <!-- timeline icon -->
+					                    <i class=\"fa fa-user bg-green\"></i>
+					                    <div class=\"timeline-item\">
+					                        <span class=\"time bg-red\"><b>Waktu Permintaan: <i class=\"fa fa-clock-o\"></i> $result[waktu_konfirmasi]</b></span>
+
+					                        <h3 class=\"timeline-header\">A/N: <b>$result[nama]</b></h3>
+
+					                        <div class=\"timeline-body\">
+					                            <dl class=\"dl-horizontal\">
+					                                <dt>NPM Penumpang</dt>
+					                                <dd>: $result[npm] </dd>
+					                                <dt>Role Penumpang</dt>
+					                                <dd>: $result[role] </dd>
+					                            </dl>
+					                        </div>
+
+					                    </div>
+					                </li>";
+					            	}
+					            echo "<!-- timeline item -->
+					    
+					            <!-- END timeline item -->
+
+					            </ul>";
+					        }
+					        else{
+					        	echo "<h4>Belum ada orang yang menumpang ke anda</h4>";
+					        }
+						
+				echo "</div><!--end box body-->
+
+			</div><!--end box success -->";
+			}?>
 		</div><!--end col md 6-->
 	</div>
 	

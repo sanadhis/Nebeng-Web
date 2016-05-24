@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 echo "
                 <!-- timeline time label -->
                 <li class=\"time-label\">
-                    <span class=\"bg-red\">
+                    <span class=\"bg-green\">
                         $result[jam_berangkat]
                     </span>
                 </li>
