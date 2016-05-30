@@ -89,9 +89,9 @@ PSSI Server' Admin >> Ndaru Widya
 ## License
 
 License by Universitas Indonesa' Green Project
->> Green Transportation System' Research Cluster
->> Computer Engineering Universitas Indonesia
->> Department of Electrical Engineering, Universitas Indonesia
+- >> Green Transportation System' Research Cluster
+- >> Computer Engineering Universitas Indonesia
+- >> Department of Electrical Engineering, Universitas Indonesia
 
 **NOTES:**
 - Yii won't create the database for you, this has to be done manually before you can access it.
