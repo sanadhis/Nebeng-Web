@@ -1,16 +1,7 @@
-Yii 2 Basic Project Template
+Nebeng - Web Application
 ============================
 
-Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-rapidly creating small projects.
-
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
-
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-basic/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-basic/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-basic.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-basic)
+Nebeng is vehicle sharing plaform at Universitas Indonesia. The project is one of the sub-research of UI's green transportation system.
 
 DIRECTORY STRUCTURE
 -------------------
@@ -33,10 +24,10 @@ DIRECTORY STRUCTURE
 REQUIREMENTS
 ------------
 
-The minimum requirement by this project template that your Web server supports PHP 5.4.0.
-Require MySQL Database
-Require LDAP-enabled support
-Require Mod-Rewrite
+- The minimum requirement by this project template that your Web server supports PHP 5.4.0.
+- Require MySQL Database
+- Require LDAP-enabled support
+- Require Mod-Rewrite
 
 
 INSTALLATION
@@ -79,12 +70,12 @@ May 2016, version v0.1
 
 ## Credits
 
-I Made Sanadhi Sutandi
-Suryo Satrio
-Martin Dominikus
-Supervisor >> Prof. Ir. Riri Fitri Sari S.T., M.M., M.Sc.
-Supervisor >> Bapak Misbahuddin
-PSSI Server' Admin >> Ndaru Widya
+- I Made Sanadhi Sutandi (https://github.com/sanadhis)
+- Suryo Satrio
+- Martin Dominikus
+- Supervisor >> Prof. Ir. Riri Fitri Sari S.T., M.M., M.Sc.
+- Supervisor >> Bapak Misbahuddin
+- PSSI Server' Admin >> Ndaru Widya
 
 ## License
 
