@@ -19,6 +19,7 @@ DIRECTORY STRUCTURE
       commands/           contains console commands (controllers)
       config/             contains application configurations
       controllers/        contains Web controller classes
+      dbdata              contains db backup
       mail/               contains view files for e-mails
       models/             contains model classes
       runtime/            contains files generated during runtime
@@ -33,6 +34,9 @@ REQUIREMENTS
 ------------
 
 The minimum requirement by this project template that your Web server supports PHP 5.4.0.
+Require MySQL Database
+Require LDAP-enabled support
+Require Mod-Rewrite
 
 
 INSTALLATION
@@ -40,44 +44,17 @@ INSTALLATION
 
 ### Install from an Archive File
 
-Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
-a directory named `basic` that is directly under the Web root.
-
-Set cookie validation key in `config/web.php` file to some random secret string:
-
-```php
-'request' => [
-    // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-    'cookieValidationKey' => '<secret random string goes here>',
-],
-```
+1. Download or pull this repository
+2. Make sure you are in the master/development branch
+3. Put the archieve in your web server directory (e.g. /var/www/ , /xampp/htdocs/, /lampp/htdocs)
+4. Run your php-server engine (Apache, NGinx)
+5. Run your MySQL database, make sure you have already imported the database to your local machine.
 
 You can then access the application through the following URL:
 
 ~~~
 http://localhost/basic/web/
 ~~~
-
-
-### Install via Composer
-
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
-
-You can then install this project template using the following command:
-
-~~~
-php composer.phar global require "fxp/composer-asset-plugin:~1.1.1"
-php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic basic
-~~~
-
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
-
-~~~
-http://localhost/basic/web/
-~~~
-
 
 CONFIGURATION
 -------------
@@ -89,12 +66,32 @@ Edit the file `config/db.php` with real data, for example:
 ```php
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => '1234',
+    'dsn' => 'mysql:host=localhost;dbname=green_ui_ac_id_1',
+    'username' => '<YOUR_ROOT_USER>',
+    'password' => '<YOUR_ROOT_PASS>',
     'charset' => 'utf8',
 ];
 ```
+
+## History
+
+May 2016, version v0.1
+
+## Credits
+
+I Made Sanadhi Sutandi
+Suryo Satrio
+Martin Dominikus
+Supervisor >> Prof. Ir. Riri Fitri Sari S.T., M.M., M.Sc.
+Supervisor >> Bapak Misbahuddin
+PSSI Server' Admin >> Ndaru Widya
+
+## License
+
+License by Universitas Indonesa' Green Project
+>> Green Transportation System' Research Cluster
+>> Computer Engineering Universitas Indonesia
+>> Department of Electrical Engineering, Universitas Indonesia
 
 **NOTES:**
 - Yii won't create the database for you, this has to be done manually before you can access it.
