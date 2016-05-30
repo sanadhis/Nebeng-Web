@@ -44,7 +44,7 @@ INSTALLATION
 You can then access the application through the following URL:
 
 ~~~
-http://localhost/basic/web/
+http://localhost/nebeng/
 ~~~
 
 CONFIGURATION
