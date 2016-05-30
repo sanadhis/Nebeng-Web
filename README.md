@@ -70,19 +70,24 @@ May 2016, version v0.1
 
 ## Credits
 
+### Developers
 - I Made Sanadhi Sutandi (https://github.com/sanadhis)
 - Suryo Satrio
 - Martin Dominikus
-- Supervisor >> Prof. Ir. Riri Fitri Sari S.T., M.M., M.Sc.
-- Supervisor >> Bapak Misbahuddin
-- PSSI Server' Admin >> Ndaru Widya
 
-## License
+###Supervisor
+- Prof. Ir. Riri Fitri Sari S.T., M.M., M.Sc.
+- Bapak Misbahuddin
 
-License by Universitas Indonesa' Green Project
-- >> Green Transportation System' Research Cluster
-- >> Computer Engineering Universitas Indonesia
-- >> Department of Electrical Engineering, Universitas Indonesia
+###Server Admin
+- Ndaru Widya
+
+## Owner
+
+Owned by Universitas Indonesa' Green Project
+- Green Transportation System' Research Cluster
+- Computer Engineering Universitas Indonesia
+- Department of Electrical Engineering, Universitas Indonesia
 
 **NOTES:**
 - Yii won't create the database for you, this has to be done manually before you can access it.
