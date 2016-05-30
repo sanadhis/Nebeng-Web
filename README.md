@@ -1,7 +1,7 @@
 Nebeng - Web Application
 ============================
 
-Nebeng is vehicle sharing plaform at Universitas Indonesia. The project is one of the sub-research of UI's green transportation system.
+Nebeng is vehicle sharing plaform at Universitas Indonesia. The project is one of the sub-research of UI's green transportation system. To use this application, users have to log in using UI's credentials (username & password) by SSO.
 
 DIRECTORY STRUCTURE
 -------------------
